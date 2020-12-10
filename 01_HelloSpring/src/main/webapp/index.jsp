@@ -8,5 +8,8 @@
 </head>
 <body>
 	<h1>Hello Spring</h1>
+	<hr>
+	<a href="/dependency">1. 결합도와 응집도</a>
+	<a href="/dependency2">2. XML방식의 의존성 주입</a>
 </body>
 </html>
