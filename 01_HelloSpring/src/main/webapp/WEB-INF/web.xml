@@ -10,9 +10,13 @@
   <servlet>
     <servlet-name>appServlet</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- 서버 시작시 읽어올 파일 -->
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+      <param-value>
+      /WEB-INF/spring/appServlet/servlet-context.xml
+      classpath:applicationContext.xml
+      </param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -39,5 +43,15 @@
   <servlet-mapping>
     <servlet-name>Dependency2</servlet-name>
     <url-pattern>/dependency2</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Dependency3</display-name>
+    <servlet-name>Dependency3</servlet-name>
+    <servlet-class>kr.or.iei.controller.Dependency3Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Dependency3</servlet-name>
+    <url-pattern>/dependency3</url-pattern>
   </servlet-mapping>
 </web-app>

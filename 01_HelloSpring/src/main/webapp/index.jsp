@@ -11,5 +11,6 @@
 	<hr>
 	<a href="/dependency">1. 결합도와 응집도</a>
 	<a href="/dependency2">2. XML방식의 의존성 주입</a>
+	<a href="/dependency3">3. XML방식의 의존성 주입2</a>
 </body>
 </html>
