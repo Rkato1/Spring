@@ -1,5 +1,7 @@
 package com.kim.member.model.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +25,28 @@ public class MemberService {
 	}
 
 	public int insertMember(Member m) {
-		System.out.println("id : "+m.getMemId());
-		System.out.println("pw : "+m.getMemPw());
-		System.out.println("name : "+m.getMemName());
-		System.out.println("addr : "+m.getAddr());
-		System.out.println("age : "+m.getAge());
-		System.out.println("no : "+m.getMemNo());
-		return 1;
+		int result = dao.insertMember(m);
+		return result;
+	}
+
+	public ArrayList<Member> selectAllMember() {
+		ArrayList<Member> list = dao.selectAllMember();
+		return list;
+	}
+
+	public Member selectOneMember(int memNo) {
+		Member m = dao.selectOneMember(memNo);
+		return m;
+	}
+
+	public int updateMember(Member m) {
+		int result = dao.updateMember(m);
+		return result;
+	}
+
+	public int deleteMember(int memNo) {
+		int result = dao.deleteMember(memNo);
+		return result;
 	}	
 	
 }

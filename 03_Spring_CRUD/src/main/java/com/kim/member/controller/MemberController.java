@@ -1,12 +1,14 @@
 package com.kim.member.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.kim.member.model.service.MemberService;
 import com.kim.member.model.vo.Member;
@@ -24,14 +26,18 @@ public class MemberController {
 	
 	//메소드 mapping
 	@RequestMapping("/login.do")
-	public String login(HttpSession session, Member m) { 
+	public String login(HttpSession session, Member m, Model model) { 
 		Member loginM = service.selectOneMember(m);
 		if(loginM!=null) {
 			session.setAttribute("loginM", loginM);
-			return "member/loginSuccess";
+			model.addAttribute("msg","로그인 성공");
+			//return "member/loginSuccess";
 		}else {
-			return "member/loginFailed";			
+			model.addAttribute("msg","아이디 또는 비밀번호를 확인하세요");
+			//return "member/loginFailed";
 		}
+		model.addAttribute("loc","/");
+		return "common/msg";
 	}
 	
 	@RequestMapping("/joinForm.do")
@@ -40,12 +46,64 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/join.do")
-	public String join(Member m) {
+	public String join(Member m, Model model) {
 		int result = service.insertMember(m);
 		if(result>0) {
-			return "member/joinSuccess";
+			model.addAttribute("msg","회원가입 성공");
+			//return "member/joinSuccess";
 		}else {
-			return "member/joinFailed";
+			model.addAttribute("msg","회원가입 실패");
+			//return "member/joinFailed";
 		}
+		model.addAttribute("loc","/");
+		return "common/msg";
+	}
+	
+	@RequestMapping("/selectAllMember.do")
+	public String selectAllMember(Model model) {
+		ArrayList<Member> list = service.selectAllMember();
+		model.addAttribute("list",list);
+		return "member/allMember";
+	}
+	
+	@RequestMapping("/mypage.do")
+	public String mypage(int memNo, Model model) {
+		Member m = service.selectOneMember(memNo);
+		model.addAttribute("m",m);
+		return "member/mypage";
+	}
+	
+	@RequestMapping("/update.do")
+	public String update(Member m) {
+		int result = service.updateMember(m);
+		return "redirect:/mypage.do?memNo="+m.getMemNo();
+	}
+	
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session, Model model, @SessionAttribute(required=false) Member loginM) {
+		//세션에 저장된걸 바로 불러옴(false는 null일떄 대비해서 처리)
+		//Member m = (Member)session.getAttribute("loginM");
+		//System.out.println(loginM.getMemId());
+		if(loginM!=null) {
+			session.invalidate();
+			model.addAttribute("msg","로그아웃 성공");
+		}else {
+			model.addAttribute("msg","로그인 되어있지않음");
+		}
+		model.addAttribute("loc","/");		
+		return "common/msg";
+	}
+	
+	@RequestMapping("/delete.do")
+	public String deleteMember(int memNo, HttpSession session, Model model) {
+		int result = service.deleteMember(memNo);
+		if(result>0) {
+			session.invalidate();
+			model.addAttribute("msg","탈퇴 성공");
+		}else {
+			model.addAttribute("msg","탈퇴 실패");
+		}
+		model.addAttribute("loc","/");
+		return "common/msg";
 	}
 }

@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>가입성공</h1>
+	<script type="text/javascript">
+		alert("${msg}");
+		location.href="${loc}";
+	</script>
 </body>
 </html>
