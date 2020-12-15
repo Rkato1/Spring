@@ -16,6 +16,15 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
+	<!-- 파일 업로드용 객체 생성 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 10mb제한 -->
+		<property name="maxUploadSize" value="10485760"/>
+	</bean>
+	
+	
+	<!-- 각 클래스에 어노테이션 추가 뒤 scan까지 추가해줘야 s표시 뜸 -->
 	<context:component-scan base-package="com.kim.member"/>
+	<context:component-scan base-package="com.kim.notice"/>
 		
 </beans>

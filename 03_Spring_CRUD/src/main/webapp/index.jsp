@@ -28,6 +28,8 @@
 			<h3><a href="/mypage.do?memNo=${sessionScope.loginM.memNo }">2. 마이페이지</a></h3>
 			<h3><a href="/logout.do">3. 로그아웃</a></h3>
 			<h3><a href="/delete.do?memNo=${sessionScope.loginM.memNo }">4. 회원탈퇴</a></h3>
+			<hr>
+			<h3><a href="/noticeList.do?reqPage=1">공지사항</a></h3>
 		</c:otherwise>
 	</c:choose>
 	
