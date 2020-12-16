@@ -47,6 +47,11 @@ public class MemberService {
 	public int deleteMember(int memNo) {
 		int result = dao.deleteMember(memNo);
 		return result;
+	}
+
+	public Member checkId(String memId) {
+		Member m = dao.checkId(memId);
+		return m;
 	}	
 	
 }

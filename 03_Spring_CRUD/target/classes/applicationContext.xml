@@ -26,5 +26,6 @@
 	<!-- 각 클래스에 어노테이션 추가 뒤 scan까지 추가해줘야 s표시 뜸 -->
 	<context:component-scan base-package="com.kim.member"/>
 	<context:component-scan base-package="com.kim.notice"/>
+	<context:component-scan base-package="com.kim.board"/>
 		
 </beans>

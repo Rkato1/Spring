@@ -76,4 +76,15 @@ public class MemberDao {
 		return result;
 	}
 
+	public Member checkId(String memId) {
+		String query = "select * from member where mem_id=?";
+		Object[] params = {memId};
+		List<Member> list = jdbc.query(query,params, new MemberRowMapper());
+		Member m = null;
+		if(list.size()!=0) {
+			m = list.get(0);
+		}
+		return m;
+	}
+
 }

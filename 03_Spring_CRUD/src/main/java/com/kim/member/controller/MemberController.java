@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.kim.member.model.service.MemberService;
@@ -105,5 +106,19 @@ public class MemberController {
 		}
 		model.addAttribute("loc","/");
 		return "common/msg";
+	}
+	
+	//이대로 보내면 /WEB-INF/view + .jsp로 보냄
+	//순수데이터가 넘어가게 처리
+	@ResponseBody
+	@RequestMapping("/idCheck.do")
+	public String idCheck(String memId) {
+		Member m = service.checkId(memId);
+		//사용불가능이면
+		if(m!=null) {
+			return "1";
+		}else {
+			return "0";
+		}
 	}
 }

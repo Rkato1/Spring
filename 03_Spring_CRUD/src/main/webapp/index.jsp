@@ -30,6 +30,7 @@
 			<h3><a href="/delete.do?memNo=${sessionScope.loginM.memNo }">4. 회원탈퇴</a></h3>
 			<hr>
 			<h3><a href="/noticeList.do?reqPage=1">공지사항</a></h3>
+			<h3><a href="/boardList.do">게시판</a></h3>
 		</c:otherwise>
 	</c:choose>
 	
