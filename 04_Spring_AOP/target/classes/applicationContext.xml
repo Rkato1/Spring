@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+		
+	<!-- DB접속 설정 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe"/>
+		<property name="username" value="mybatis"/>
+		<property name="password" value="1234"/>
+	</bean>
+	<!-- jdbcTemplate객체생성 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<!-- 파일 업로드용 객체 생성 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 10mb제한 -->
+		<property name="maxUploadSize" value="10485760"/>
+	</bean>
+	<!-- LogAdvice객체 생성 -->
+	<bean id="log1" class="com.kim.log.LogAdvice1"></bean>
+	<bean id="log2" class="com.kim.log.LogAdvice2"></bean>
+	<!-- aop관련설정들 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.kim.member.model.service.MemberService.*(..))" id="allPointCut"/>		
+		<!-- 범위 수정 -->
+		<!-- <aop:pointcut expression="execution(* com.kim..*Service.*(..))" id="allPointCut"/> -->
+		<!-- log1번 사용시 -->
+		<aop:aspect ref="log1">
+			<aop:before method="logging" pointcut-ref="allPointCut"/>
+		</aop:aspect>
+		<!-- log2번 사용시 -->
+		<!-- aop:aspect ref="log2">
+			<aop:before method="printLog" pointcut-ref="allPointCut"/>
+		</aop:aspect-->
+	</aop:config>
+	
+	<!-- 각 클래스에 어노테이션 추가 뒤 scan까지 추가해줘야 s표시 뜸 -->
+	<context:component-scan base-package="com.kim.member"/>
+	<context:component-scan base-package="com.kim.notice"/>
+	<context:component-scan base-package="com.kim.board"/>
+		
+</beans>
