@@ -33,8 +33,11 @@ public class MemberController {
 	//@RequestMapping("/login.do")
 	//method가 post일때만 적용되게 전환
 	@RequestMapping(value = "/login.do", method=RequestMethod.POST)
-	public String login(HttpSession session, Member m, Model model) { 
-		Member loginM = service.selectOneMember(m);
+	public String login(HttpSession session, Member m, Model model) {
+		//기존
+		//Member loginM = service.selectOneMember(m);
+		//수정
+		Member loginM = service.loginMember(m.getMemId(), m.getMemPw());
 		if(loginM!=null) {
 			session.setAttribute("loginM", loginM);
 			model.addAttribute("msg","로그인 성공");

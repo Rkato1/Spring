@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 		
 	<!-- DB접속 설정 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
@@ -23,27 +25,82 @@
 		<!-- 10mb제한 -->
 		<property name="maxUploadSize" value="10485760"/>
 	</bean>
+	<!-- BeforeAdvice객체생성 -->
+	<!-- <bean id="beforeAdvice" class="com.kim.log.BeforeAdvice"/>-->
+	<!-- <aop:config>-->
+	<!-- 기존
+		<aop:pointcut expression="execution(* com.kim.member.model.service.MemberService.*(..))" id="allPointcut"/>
+		 -->
+		 <!-- 변경(매개변수 하나 있는 것들만 출력) -->
+		<!-- <aop:pointcut expression="execution(* com.kim.member.model.service.MemberService.*(*))" id="allPointcut"/>-->
+		<!-- <aop:aspect ref="beforeAdvice">
+			<aop:before method="beforeLog" pointcut-ref="allPointcut"/>
+		</aop:aspect>
+		</aop:config> -->
+	<!-- 	
+	<bean id="afterReturningAdvice" class="com.kim.log.AfterReturningAdvice"/>
+	<aop:config> -->
+	<!-- 메소드명과 파라미터의 메소드까지 다 적어줘야 함 -->
+	<!-- 		
+		<aop:pointcut expression="execution(* com.kim.member.model.service.MemberService.selectOneMember(com.kim.member.model.vo.Member))" id="login"/>
+		<aop:aspect ref="afterReturningAdvice">
+			<aop:after-returning method="success" pointcut-ref="login" returning="returnObj"/>
+		</aop:aspect>
+	</aop:config>
+	 -->
+	 <!-- 
+	 <bean id="afterThrowingAdvice" class="com.kim.log.AfterThrowingAdvice"/>
+	 <aop:config>
+	 	<aop:pointcut expression="execution(* com.kim.member.model.service.MemberService.selectOneMember(com.kim.member.model.vo.Member))" id="login"/>
+	 	<aop:aspect ref="afterThrowingAdvice">
+	 		<aop:after-throwing method="exceptionLog" pointcut-ref="login" throwing="exceptionObj"/>
+	 	</aop:aspect>
+	 </aop:config>
+	  -->
+	  <!-- aop bean방식 -->
+	  <!--
+	 <bean id="aroundAdvice" class="com.kim.log.AroundAdvice"/>
+	 <aop:config>
+	 	<aop:pointcut expression="execution(* com.kim.member.model.service.MemberService.*(..))" id="allPointcut"/>
+	 	<aop:aspect ref="aroundAdvice">
+	 		<aop:around method="aroundLog" pointcut-ref="allPointcut"/>
+	 	</aop:aspect>
+	 </aop:config>-->
+	 <!-- aop 어노테이션방식 -->
+	 <aop:aspectj-autoproxy/>
+	 <!-- scan범위 추가 -->
+	 <context:component-scan base-package="com.kim.log"></context:component-scan>
 	<!-- LogAdvice객체 생성 -->
+	<!-- 
 	<bean id="log1" class="com.kim.log.LogAdvice1"></bean>
 	<bean id="log2" class="com.kim.log.LogAdvice2"></bean>
+	 -->
 	<!-- aop관련설정들 -->
-	<aop:config>
-		<aop:pointcut expression="execution(* com.kim.member.model.service.MemberService.*(..))" id="allPointCut"/>		
+	<!-- <aop:config>
+		<aop:pointcut expression="execution(* com.kim.member.model.service.MemberService.*(..))" id="allPointCut"/> -->		
 		<!-- 범위 수정 -->
 		<!-- <aop:pointcut expression="execution(* com.kim..*Service.*(..))" id="allPointCut"/> -->
 		<!-- log1번 사용시 -->
-		<aop:aspect ref="log1">
+		<!-- <aop:aspect ref="log1">
 			<aop:before method="logging" pointcut-ref="allPointCut"/>
 		</aop:aspect>
+		 -->
 		<!-- log2번 사용시 -->
 		<!-- aop:aspect ref="log2">
 			<aop:before method="printLog" pointcut-ref="allPointCut"/>
 		</aop:aspect-->
-	</aop:config>
+	<!-- </aop:config> -->
 	
 	<!-- 각 클래스에 어노테이션 추가 뒤 scan까지 추가해줘야 s표시 뜸 -->
 	<context:component-scan base-package="com.kim.member"/>
 	<context:component-scan base-package="com.kim.notice"/>
 	<context:component-scan base-package="com.kim.board"/>
 		
+	<!-- 트랜잭션 설정 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 저위의 dataSource와 같음 -->
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<!-- transaction을 사용할 거다라고 선언 -->
+	<tx:annotation-driven/>
 </beans>

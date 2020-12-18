@@ -87,4 +87,16 @@ public class MemberDao {
 		return m;
 	}
 
+	public Member selectOneMember(String memId, String memPw) {
+		//System.out.println("로그인 pw = "+memPw);
+		String query = "select * from member where mem_id=? and mem_pw=?";
+		Object[] params = {memId, memPw};
+		List<Member> list = jdbc.query(query,params, new MemberRowMapper());
+		Member m = null;
+		if(list.size()!=0) {
+			m = list.get(0);
+		}
+		return m;
+	}
+
 }
