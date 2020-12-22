@@ -32,7 +32,7 @@ public class MemberPwEnc {
 		String memPw = m.getMemPw();
 		if(memPw!=null) {
 			String encPw = enc.encPw(memPw);
-			System.out.println(encPw);
+			//System.out.println(encPw);
 			m.setMemPw(encPw);
 		}
 	}	

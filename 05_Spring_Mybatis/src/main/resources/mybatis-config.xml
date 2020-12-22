@@ -6,5 +6,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.kim.member.model.vo.Member" alias="m"/>
+		<typeAlias type="com.kim.board.model.vo.Board" alias="b"/>
+		<typeAlias type="com.kim.board.model.vo.FileVO" alias="f"/>
 	</typeAliases>
 </configuration>

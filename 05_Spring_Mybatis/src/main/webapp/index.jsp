@@ -25,6 +25,9 @@
 			<h3><a href="/selectAllMember.kh">전체회원조회</a></h3>
 			<h3><a href="/logout.kh">로그아웃</a></h3>
 			<h3><a href="/deleteMember.kh?memNo=${sessionScope.m.memNo }">회원탈퇴</a></h3>
+			<h3><a href="/boardList.kh">게시판가기</a></h3>
+			<h3><a href="/allMemberChat.kh">채팅하러가기</a></h3>
+			<h3><a href="/dmList.kh?memId=${sessionScope.m.memId }">쪽지ㄱㄱ</a></h3>
 		</c:otherwise>
 	</c:choose>
 </body>

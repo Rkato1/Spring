@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kim.member.model.dao.MemberDao;
+import com.kim.member.model.vo.DirectMessage;
 import com.kim.member.model.vo.Member;
 @Service
 public class MemberService {
@@ -36,5 +37,13 @@ public class MemberService {
 
 	public int deleteMember(Member m) {
 		return dao.deleteMember(m);
+	}
+
+	public ArrayList<DirectMessage> selectDMList(String memId) {		
+		return dao.selectDMList(memId);
+	}
+
+	public int insertDM(DirectMessage dm) {
+		return dao.insertDM(dm);
 	}
 }

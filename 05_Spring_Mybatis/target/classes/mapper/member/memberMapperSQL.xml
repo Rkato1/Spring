@@ -62,4 +62,23 @@
   	delete from member
   	where mem_no=#{memNo}
   </delete>
+  
+  <select id="selectdmList" parameterType="string" resultType="com.kim.member.model.vo.DirectMessage">
+  	select
+  		dm_no as dmNo,
+  		dm_sender as dmSender,
+  		dm_receiver as dmReceiver,
+  		message,
+  		check_message as checkMessage,
+  		dm_date as dmDate
+  	from direct_message where dm_sender=#{_parameter} or dm_receiver=#{_parameter}
+  </select>
+  
+  <insert id="insertDM" parameterType="com.kim.member.model.vo.DirectMessage">
+  	insert into direct_message values(dm_seq.nextval, #{dmSender},#{dmReceiver},#{message},'읽지않음',to_char(sysdate,'yyyy-mm-dd'))
+  </insert>
+  
+  <select id="dmCount" parameterType="string" resultType="_int">
+  	select count(*) from direct_message where dm_receiver = #{_parameter} and check_message='읽지않음'
+  </select>
 </mapper>

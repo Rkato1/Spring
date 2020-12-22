@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.kim.member.model.service.MemberService;
+import com.kim.member.model.vo.DirectMessage;
 import com.kim.member.model.vo.Member;
 
 @Controller
@@ -71,7 +72,7 @@ public class MemberController {
 	@RequestMapping("/selectAllMember.kh")
 	public String AllMember(Model model) {
 		ArrayList<Member> list = service.selectAllMember();
-		System.out.println(list.size());
+		//System.out.println(list.size());
 		model.addAttribute("list", list);
 		return "member/allMember";
 	}
@@ -105,5 +106,23 @@ public class MemberController {
 		}
 		model.addAttribute("loc","/");
 		return "common/msg";
+	}
+	
+	@RequestMapping("/allMemberChat.kh")
+	public String allMemberChar() {
+		return "member/allMemberChat";
+	}
+	
+	@RequestMapping("/dmList.kh")
+	public String dmList(String memId, Model model) {
+		ArrayList<DirectMessage> list = service.selectDMList(memId);
+		model.addAttribute("list",list);
+		return "member/dmList";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/dmInsert.kh")
+	public int dmInsert(DirectMessage dm) {
+		return service.insertDM(dm);
 	}
 }

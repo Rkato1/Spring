@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kim.member.model.vo.DirectMessage;
 import com.kim.member.model.vo.Member;
 
 @Repository
@@ -37,5 +38,18 @@ public class MemberDao {
 
 	public int deleteMember(Member m) {
 		return sqlSession.delete("member.deleteMember",m);
+	}
+
+	public ArrayList<DirectMessage> selectDMList(String memId) {
+		List<DirectMessage> list = sqlSession.selectList("member.selectdmList", memId);
+		return (ArrayList<DirectMessage>) list;
+	}
+
+	public int insertDM(DirectMessage dm) {
+		return sqlSession.insert("member.insertDM",dm);
+	}
+
+	public int dmCount(String data) {
+		return sqlSession.selectOne("member.dmCount",data);
 	}
 }
