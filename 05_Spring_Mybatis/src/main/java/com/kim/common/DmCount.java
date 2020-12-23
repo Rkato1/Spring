@@ -1,6 +1,7 @@
 package com.kim.common;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -47,5 +48,13 @@ public class DmCount extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception{
 		System.out.println("클라이언트 접속(DM) 종료");
+		Set<String> keys = connectMembers.keySet();
+		for(String key : keys) {
+			WebSocketSession currentSession = connectMembers.get(key);
+			if(currentSession.equals(session)) {
+				connectMembers.remove(key);
+				break;
+			}
+		}
 	}
 }

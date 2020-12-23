@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<h1>메인페이지(Spring-Mybatis)</h1>
 	<hr>
 	<c:choose>

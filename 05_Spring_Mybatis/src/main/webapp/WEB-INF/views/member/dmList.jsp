@@ -56,7 +56,7 @@
 	</div>
 	<script>
 		function insertDm(dmSender){
-			var dmReceiver = $("[name=dmReceiver]").val();
+			var dmReceiver  = $("[name=dmReceiver]").val();
 			var message = $("[name=message]").val();
 			$.ajax({
 				url:"/dmInsert.kh",

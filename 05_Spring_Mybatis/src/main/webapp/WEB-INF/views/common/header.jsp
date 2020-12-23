@@ -6,7 +6,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <c:if test="${sessionScope.m != null }">
 	<h2>여기는 헤더</h2>
-	<h3>[${sessionScope.m.memName} }]쪽지함 <span id="dmCount"></span>개</h3>
+	<h3>[${sessionScope.m.memName}]쪽지함 <span id="dmCount"></span>개</h3>
 </c:if>
 <script>
 	var ws;
