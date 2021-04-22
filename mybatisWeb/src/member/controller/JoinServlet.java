@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.oracle.jrockit.jfr.RequestDelegate;
+//뭐하다 생긴건진 모르겠는데 에러나서 주석처리
+//import com.oracle.jrockit.jfr.RequestDelegate;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;

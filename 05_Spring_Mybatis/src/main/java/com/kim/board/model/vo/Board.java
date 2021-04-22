@@ -3,9 +3,9 @@ package com.kim.board.model.vo;
 import java.util.ArrayList;
 
 import lombok.Data;
+/*
 import lombok.Getter;
 import lombok.Setter;
-/*
 @Getter 이 두개를 합친게 @Data
 @Setter
 */
